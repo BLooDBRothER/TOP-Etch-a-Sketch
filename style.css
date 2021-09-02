@@ -1,0 +1,132 @@
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100vh;
+  width: 100vw;
+  max-height: 100vh;
+  overflow: hidden;
+  background: url("./Assets/bg.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  color: yellow;
+}
+
+header {
+  padding-top: 2.5rem;
+  font-size: 2rem;
+}
+
+h1 {
+  text-align: center;
+}
+
+main {
+  width: 100%;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  z-index: 0;
+}
+
+.slider{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.slider__detail{
+  font-size: 2rem;
+}
+
+.slider__input {
+  -webkit-appearance: none;
+  width: 250px;
+  height: 15px;
+  background: #000;
+  outline: none;
+  border: 5px solid lawngreen;
+  border-radius: 8px;
+  margin: 2rem 0;
+}
+
+
+/* for chrome/safari */
+.slider__input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 60px;
+  background: #000;
+  cursor: pointer;
+  border: 5px solid aqua;
+  border-radius: 4px;
+}
+
+/* for firefox */
+.slider__input::-moz-range-thumb {
+  width: 20px;
+  height: 60px;
+  background: #000;
+  cursor: pointer;
+  border: 5px solid lawngreen;
+  border-radius: 4px;
+}
+.hover {
+  align-self: flex-start;
+  margin-top: 5rem;
+  width: 600px;
+  height: 600px;
+  background-color: white;
+  position: relative;
+  z-index: 2;
+  margin-right: 5rem;
+  display: grid;
+  grid-template-columns: repeat();
+}
+
+.option{
+  margin-bottom: 6rem;
+}
+
+.option__info{
+  font-size: 1.4rem;
+  margin-bottom: 2rem;
+}
+
+.option__each{
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  font-size: 1.4rem;
+  border: 2px solid lawngreen;
+  color: yellow;
+  padding: .8rem 1rem;
+  margin: 2rem 0;
+  cursor: pointer;
+}
+
+.option__each:hover{
+  background-color: white;
+  color: black;
+}
+
+.option__each input{
+  margin-left: 1rem;
+}
+
+.none {
+  display: none;
+}
