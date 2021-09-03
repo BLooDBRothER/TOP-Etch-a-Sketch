@@ -14,7 +14,15 @@ function toggleBorders(){
     });
 }
 
-
+// event listener
+function addListener(){
+    let small = hover.querySelectorAll(".hover__small");
+    small.forEach(each => {
+        each.addEventListener("mouseenter", (e) => {
+            e.target.style.backgroundColor = "red";
+        })
+    });
+}
 
 slider.addEventListener("input", (e) => {
     let value = e.target.value;
@@ -28,6 +36,7 @@ slider.addEventListener("input", (e) => {
         html += template;
     }
     hover.innerHTML = html;
+    addListener();
 });
 
 options.forEach(option => {
