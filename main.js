@@ -5,6 +5,8 @@ const hover = document.querySelector(".hover");
 // Option button
 const optionCnt = document.querySelector(".option");
 const options = document.querySelectorAll(".option__each");
+const colorPallete = document.querySelector("input[type='color']");
+const optionInfo = document.querySelector(".option__info");
 let borderBool = false;
 
 function randNo(){
@@ -13,6 +15,11 @@ function randNo(){
 
 function returnRGB(value){
     return value.match(/rgb\(([0-9]*), ([0-9]*), ([0-9]*)\)/);
+}
+
+function updatePsudoColor(prev1, prev2){
+    document.documentElement.style.setProperty("--prev1-color", prev1);
+    document.documentElement.style.setProperty("--prev2-color", prev2);
 }
 
 // option function
@@ -36,6 +43,15 @@ function calculateInvert(elem){
     return `rgb(${255 - clr[1]}, ${255 - clr[2]}, ${255 - clr[3]})`;
 }
 
+function clearColor(){
+    let small = hover.querySelectorAll(".hover__small");
+    small.forEach(each => {
+        each.style.backgroundColor = "unset";
+    });
+    updatePsudoColor("unset", "unset");
+}
+
+let prev1=null, prev2=null;
 function applyColor(elem){
     let color;
     switch(optionCnt.dataset.value){
@@ -48,9 +64,16 @@ function applyColor(elem){
         case "invert":
             color = calculateInvert(elem);
             break;
+        case "color":
+            color = colorPallete.value;
+            break;
     }
+    optionInfo.innerText = color;
     elem.style.backgroundColor = color;
     document.documentElement.style.setProperty("--curr-color", color);
+    updatePsudoColor(prev1, prev2);
+    prev2 = prev1;
+    prev1 = color;
 }
 
 // event listener
@@ -59,7 +82,7 @@ function addListener(){
     small.forEach(each => {
         each.addEventListener("mouseenter", (e) => {
             applyColor(e.target);
-        })
+        });
     });
 }
 
@@ -87,11 +110,24 @@ options.forEach(option => {
             toggleBorders();
             return;
         }
+        if(this.dataset.value === "clear"){
+            clearColor();
+            return;
+        }
         optionCnt.dataset.value = this.dataset.value;
         prevOption.classList.remove("active");
         this.classList.add("active");
         prevOption = this;
-    })
+    });
+});
+
+let prevTouch;
+hover.addEventListener("touchmove", (e) => {
+    e.preventDefault();
+    let elem = document.elementFromPoint(e.touches[0].clientX, e.touches[0].clientY);
+    if(!elem.classList.contains("hover__small") || prevTouch === elem) return;
+    prevTouch = elem;
+    applyColor(elem);
 });
 
 addListener();
