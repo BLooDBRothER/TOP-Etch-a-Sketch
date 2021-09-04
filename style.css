@@ -120,7 +120,7 @@ main {
   color: lawngreen;
 }
 
-.hover__border{
+.hover__border > *{
   border: .5px solid white;
 }
 

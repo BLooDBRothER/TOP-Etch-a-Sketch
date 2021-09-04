@@ -17,19 +17,23 @@ function returnRGB(value){
 
 // option function
 function toggleBorders(){
-    let small = hover.querySelectorAll(".hover__small");
-    small.forEach(each => {
-        each.classList.toggle("hover__border");
-    });
+    hover.classList.toggle("hover__border");
 }
 
 function calculateGray(elem){
-    if(!elem.dataset.gray){
-        elem.dataset.gray = "on";
-        elem.style.backgroundColor = `rgb(255, 255, 255)`;
-    }
     let clr = returnRGB(elem.style.backgroundColor);
-    elem.style.backgroundColor = clr[1] <= 0 ? `rgb(255, 255, 255)` : `rgb(${clr[1]-25}, ${clr[1]-25}, ${clr[1]-25})`;
+    if(!clr || clr[1] !== clr[2] || clr[1] !== clr[3]){
+        return `rgb(255, 255, 255)`;
+    }
+    return clr[1] <= 0 ? `rgb(255, 255, 255)` : `rgb(${clr[1]-25}, ${clr[1]-25}, ${clr[1]-25})`;
+}
+
+function calculateInvert(elem){
+    let clr = returnRGB(elem.style.backgroundColor);
+    if(!clr){
+        return `rgb(255, 255, 255)`;
+    }
+    return `rgb(${255 - clr[1]}, ${255 - clr[2]}, ${255 - clr[3]})`;
 }
 
 function applyColor(elem){
@@ -39,10 +43,11 @@ function applyColor(elem){
             color = `rgb(${randNo()}, ${randNo()}, ${randNo()})`;
             break;
         case "gray":
-            calculateGray(elem);
+            color = calculateGray(elem);
             break;
         case "invert":
-
+            color = calculateInvert(elem);
+            break;
     }
     elem.style.backgroundColor = color;
     document.documentElement.style.setProperty("--curr-color", color);
@@ -64,7 +69,7 @@ slider.addEventListener("input", (e) => {
     count.innerText = `${value} x ${value} = ${total}`
     let html = "";
     console.log(borderBool);
-    let template = `<div class="${borderBool? "hover__small hover__border" : "hover__small"}"></div>`
+    let template = `<div class= "hover__small"></div>`
     document.documentElement.style.setProperty("--repeat", `${value}`);
     for(let i=0; i<total; i++){
         html += template;
@@ -80,6 +85,7 @@ options.forEach(option => {
             borderBool = !borderBool;
             this.classList.toggle("active");
             toggleBorders();
+            return;
         }
         optionCnt.dataset.value = this.dataset.value;
         prevOption.classList.remove("active");
