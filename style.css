@@ -125,8 +125,10 @@ main {
 .hover {
   align-self: flex-start;
   margin-top: 5rem;
-  width: 600px;
-  height: 600px;
+  width: 80vw;
+  height: 80vw;
+  max-width: 600px;
+  max-height: 600px;
   background-color: rgb(0, 0, 0);
   position: relative;
   z-index: 2;
@@ -134,7 +136,7 @@ main {
   display: grid;
   grid-template-columns: repeat(var(--repeat), 1fr);
   grid-template-rows: repeat(var(--repeat), 1fr);
-  box-shadow: 2px 2px 20px 20px var(--curr-color);
+  box-shadow: 0px 0px 10px 10px var(--curr-color);
   transition: box-shadow .5s ease;
   position: relative;
 }
@@ -177,7 +179,8 @@ main {
   font-size: clamp(0.8rem , 3vw, 1.4rem);
   border: 2px solid lawngreen;
   color: yellow;
-  padding: .8rem 1rem;
+  padding: .8rem 0;
+  width: clamp(150px, 10vw, 200px);
   margin: 2rem 0;
   cursor: pointer;
 }
@@ -198,6 +201,7 @@ footer{
   padding: 0 clamp(0.2rem,5vw, 2rem);
   align-items: flex-end;
   font-size: clmap(.8rem, 3vw, 1.4rem);
+  padding-bottom: 1rem;
 }
 
 .odin{
@@ -248,7 +252,7 @@ a:hover svg{
   }
 
   header{
-    padding: 0.5rem;
+    padding: 1rem;
   }
 
   .slider{
@@ -257,8 +261,6 @@ a:hover svg{
   
 
   .hover{
-    width: 500px;
-    height: 500px;
     margin: 1rem auto;
   }
 
@@ -275,17 +277,5 @@ a:hover svg{
 
   footer{
     height: 100px;
-  }
-}
-
-@media (max-width: 550px){
-  .hover{
-    width: 80%;
-    height: unset;
-  }
-  .hover::before{
-    content: '';
-    display: block;
-    padding-bottom: 100%;
   }
 }
