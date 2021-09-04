@@ -9,14 +9,14 @@
 :root{
   --repeat: 10;
   --curr-color: white;
+  --prv1-color: transparent;
+  --prv2-color: transparent;
 }
 
 html,
 body {
-  height: 100vh;
   width: 100vw;
-  max-height: 100vh;
-  overflow: hidden;
+  min-height: 100vh;
   background: url("./Assets/bg.jpg");
   background-size: cover;
   background-position: center;
@@ -25,11 +25,40 @@ body {
   display: flex;
   flex-direction: column;
   color: yellow;
+
+  /* overscroll-behavior: none;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none; */
+}
+
+body::before{
+  content: '';
+  width: clamp(20px, 8vw, 50px);
+  height: clamp(20px, 8vw, 50px);
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  background-color: var(--prev2-color);
+  position: absolute;
+}
+body::after{
+  content: '';
+  width: clamp(20px, 8vw, 50px);
+  height: clamp(20px, 8vw, 50px);
+  top: 0;
+  right: 0;
+  border-radius: 50%;
+  background-color: var(--prev1-color);
+  position: absolute;
 }
 
 header {
   padding-top: 2.5rem;
-  font-size: 2rem;
+  font-size: clamp(1rem, 4vw, 2rem);
 }
 
 h1 {
@@ -50,11 +79,13 @@ main {
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-right: 2rem;
 }
 
 .slider__detail{
-  font-size: 2rem;
+  font-size: clamp(.8rem, 5vw, 2rem);
   width: 250px;
+  color: lawngreen;
   text-align: center;
 }
 
@@ -103,7 +134,7 @@ main {
   display: grid;
   grid-template-columns: repeat(var(--repeat), 1fr);
   grid-template-rows: repeat(var(--repeat), 1fr);
-  box-shadow: 2px 2px 20px 10px var(--curr-color);
+  box-shadow: 2px 2px 20px 20px var(--curr-color);
   transition: box-shadow .5s ease;
   position: relative;
 }
@@ -114,7 +145,7 @@ main {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 2rem;
+  font-size: clamp(1rem, 5vw, 2rem);
   white-space: nowrap;
   z-index: -1;
   color: lawngreen;
@@ -131,20 +162,19 @@ main {
   cursor: pointer;
 }
 
-.option{
-  margin-bottom: 6rem;
-}
 
 .option__info{
   font-size: 1.4rem;
-  margin-bottom: 2rem;
+  margin-bottom: clamp(1rem, 5vw, 2rem);
+  width: 200px;
+  text-align: center;
 }
 
 .option__each{
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  font-size: 1.4rem;
+  font-size: clamp(0.8rem , 3vw, 1.4rem);
   border: 2px solid lawngreen;
   color: yellow;
   padding: .8rem 1rem;
@@ -157,15 +187,105 @@ main {
   color: black;
 }
 
+.option__each input{
+  margin-left: 1rem;
+}
+
+footer{
+  height: 150px;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 clamp(0.2rem,5vw, 2rem);
+  align-items: flex-end;
+  font-size: clmap(.8rem, 3vw, 1.4rem);
+}
+
+.odin{
+  display: flex;
+  align-items: flex-end;
+}
+
+.odin img{
+  height: clamp(20px, 8vw, 50px);
+}
+
+.github{
+  display: flex;
+}
+
+.github svg{
+  color: var(--curr-color);
+  width: clamp(20px, 8vw, 50px);
+}
+
+a{
+  text-decoration: none;
+  color: lawngreen;
+}
+
+a:hover{
+  color: yellow;
+}
+
+a:hover svg{
+  color: yellow;
+}
+
 .active{
   background-color: rgb(0, 238, 255);
   color: black; 
 }
 
-.option__each input{
-  margin-left: 1rem;
-}
-
 .none {
   display: none;
+}
+
+@media (max-width: 1200px){
+  main{
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  header{
+    padding: 0.5rem;
+  }
+
+  .slider{
+    margin: 0;
+  }
+  
+
+  .hover{
+    width: 500px;
+    height: 500px;
+    margin: 1rem auto;
+  }
+
+  .option{
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .option > *{
+    margin: 2rem 1rem 0 1rem;
+  }
+
+  footer{
+    height: 100px;
+  }
+}
+
+@media (max-width: 550px){
+  .hover{
+    width: 80%;
+    height: unset;
+  }
+  .hover::before{
+    content: '';
+    display: block;
+    padding-bottom: 100%;
+  }
 }
